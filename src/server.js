@@ -6,7 +6,7 @@ import { getAllContacts, getContactById } from './services/contacts.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
-export const setupServer = () => {
+export const setupServer = async () => {
   const app = express();
 
   app.use(express.json());
@@ -38,8 +38,8 @@ export const setupServer = () => {
     const { contactId } = req.params;
     const contact = await getContactById(contactId);
 
-    if (!contact) {
-      return res.status(404).json({
+    if (contact === null) {
+      return res.status(404).send({
         status: 404,
         message: 'Contact not found',
       });
@@ -65,13 +65,16 @@ export const setupServer = () => {
     });
   });
 
-  app.listen(PORT, (err) => {
-    if (err) {
-      throw err;
+  try {
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (err) {
+    if (err.code === 'EADDRINUSE') {
+      console.error(`❌ Port ${PORT} is already in use.`);
+    } else {
+      console.error('❌ Failed to start server:', err);
     }
-
-    console.log(`Server started on port ${PORT}`);
-  });
+    process.exit(1);
+  }
 };
-
-setupServer();
