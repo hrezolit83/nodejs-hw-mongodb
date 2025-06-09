@@ -1,7 +1,7 @@
-tags:
-  - Contacts
 summary: Create contact
 operationId: createContact
+tags:
+  - Contacts
 description: 'Create a contact with payload'
 security:
   - bearerAuth: []
