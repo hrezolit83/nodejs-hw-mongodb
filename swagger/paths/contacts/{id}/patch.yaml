@@ -8,7 +8,6 @@ security:
 parameters:
   - name: id
     in: path
-    # required: true
     description: ID of the contact to patch
     schema:
       type: string
@@ -18,7 +17,7 @@ requestBody:
     multipart/form-data:
       schema:
         type: object
-        required: [name, email]
+        # required: [name, email]
         properties:
           name:
             description: "Contact's name"
@@ -42,10 +41,6 @@ requestBody:
             type: boolean
             default: false
             example: false
-          userId:
-            description: "User's ID"
-            type: string
-            example: 65e4decdd286b30065d54af9
           photo:
             description: "Contact's photo"
             type: string

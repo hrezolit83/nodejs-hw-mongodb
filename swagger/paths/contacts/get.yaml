@@ -34,11 +34,6 @@ parameters:
       type: boolean
       example: false
   - in: query
-    name: phoneNumber
-    schema:
-      type: string
-      example: '38120005555'
-  - in: query
     name: contactType
     schema:
       type: string
